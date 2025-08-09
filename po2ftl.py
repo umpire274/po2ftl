@@ -46,9 +46,18 @@ def main():
     # Parse the arguments
     args = parser.parse_args()
 
-    # Call the conversion function
-    po_to_ftl(args.input, args.output)
-    print(f"Conversion completed: {args.input} → {args.output}")
+    # Check if no arguments were passed and show the help message
+    if not any(vars(args).values()):
+        parser.print_help()
+        return
+
+    # Call the conversion function if both input and output are provided
+    if args.input and args.output:
+        po_to_ftl(args.input, args.output)
+        print(f"Conversion completed: {args.input} → {args.output}")
+    else:
+        print("Error: Both input and output files must be specified.")
+        parser.print_help()
 
 
 if __name__ == '__main__':
